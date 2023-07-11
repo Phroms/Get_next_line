@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 17:21:10 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/06 18:36:15 by agrimald         ###   ########.fr       */
+/*   Updated: 2023/07/11 21:08:45 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,34 @@ char	*ft_strchr(const char *s, int c)
 	return ((char *)0);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*new;
-	int		i;
+	char	*substring;
+	size_t	i;
+	size_t	longitud;
 
-	i = 0;
-	new = malloc(ft_strlen(s1) + 1);
-	if (new == NULL)
-		return (NULL);
-	while (s1[i] != '\0')
+	longitud = ft_strlen(s);
+	if (start >= longitud)
 	{
-		new[i] = s1[i];
+		substring = malloc(sizeof(char) * (1));
+		if (!subtring)
+			return (NULL);
+		substring[0] = '\0';
+		return (substring);
+	}
+	if (start + len > longitud)
+		len = longitud - start;
+	substring = (char *)malloc(len + 1);
+	if (!substring)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		substring[i] = s[start + i];
 		i++;
 	}
-	new[i] = '\0';
-	return (new);
+	substring[i] = '\0';
+	return (substring);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)

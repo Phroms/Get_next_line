@@ -6,27 +6,54 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:56:43 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/06 18:27:51 by agrimald         ###   ########.fr       */
+/*   Updated: 2023/07/11 21:13:55 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	**free_memory(char **memory)
+static char	read_storage(int fd, char *storage)
 {
-	int	i;
+	int		read_bytes;
+	char	*tmp_storage;
 
-	i = 0;
-	while (memory[i])
+	tmp_storage = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!storage)
+		return (free(storage));
+	read_bytes = 1;
+	while (ft_strchr && read_bytes > 0)
 	{
-		free(memory[i]);
-		i++;
+		read_bytes = read(fd, tmp_storage, BUFFER_SIZE);
+		if (read_bytes < 0)
+		{
+			free(tmp_storge)
+				if(storage)
+					free(storage);
+			return (NULL);
+		}
+		tmp_storage[read_bytes] = '\0';
+		storage = ft_strjoin(tmp_storage, storage);
 	}
-	free(memory);
-	return (NULL);
+	free(tmp_storage);
+	tmp_storage = NULL;
+	return (storage);
+}
+
+static char	extract_storage(char *storage)
+{
+	char	*aux;
+	char	*line;
+	int		len;
+
+	aux = ft_strchr(storage, '\n');
+	len = (aux - storage) + 1;
+	line = ft_substr(storage, 0, len);
+	if (!line)
+		return (NULL);
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	
+	static char	*storage;	
 }
