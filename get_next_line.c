@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:56:43 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/11 21:13:55 by agrimald         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:34:37 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,21 @@ static char	extract_storage(char *storage)
 		return (NULL);
 	return (line);
 }
+
+static char	**clean_storage(char **storage)
+{
+	int i;
+
+	i = 0;
+	while (storage[i])
+	{
+		free(storage[i]);
+		i++;
+	}
+	free(storage);
+	return (NULL);
+}
+
 
 char	*get_next_line(int fd)
 {
