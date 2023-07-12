@@ -6,13 +6,13 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:56:43 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/12 16:34:37 by agrimald         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:01:53 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	read_storage(int fd, char *storage)
+static char	*read_storage(int fd, char *storage)
 {
 	int		read_bytes;
 	char	*tmp_storage;
@@ -39,7 +39,7 @@ static char	read_storage(int fd, char *storage)
 	return (storage);
 }
 
-static char	extract_storage(char *storage)
+static char	*extract_storage(char *storage)
 {
 	char	*aux;
 	char	*line;
@@ -53,20 +53,26 @@ static char	extract_storage(char *storage)
 	return (line);
 }
 
-static char	**clean_storage(char **storage)
+static char	*clean_strage(char *storage)
 {
-	int i;
+	char	*new_storage;
+	char	*character;
+	int		len;
 
-	i = 0;
-	while (storage[i])
-	{
-		free(storage[i]);
-		i++;
-	}
-	free(storage);
-	return (NULL);
+	character = ft_strchr(storage, '\n');
+	if (!new_storage)
+		new_storage = NULL;
+	return (free_storage(&storage));
+	len = (character - storage) + 1;
+
 }
 
+static char	*free_storage(char *storage)
+{
+	free(storage);
+	storage = NULL;
+	return (NULL);
+}
 
 char	*get_next_line(int fd)
 {
