@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:56:43 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/12 18:01:53 by agrimald         ###   ########.fr       */
+/*   Updated: 2023/07/12 19:13:35 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*read_storage(int fd, char *storage)
 	tmp_storage = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!storage)
 		return (free(storage));
-	read_bytes = 1;
+	read_bytes = 69;
 	while (ft_strchr && read_bytes > 0)
 	{
 		read_bytes = read(fd, tmp_storage, BUFFER_SIZE);
@@ -60,11 +60,19 @@ static char	*clean_strage(char *storage)
 	int		len;
 
 	character = ft_strchr(storage, '\n');
-	if (!new_storage)
+	if (!character)
+	{
 		new_storage = NULL;
-	return (free_storage(&storage));
+		return (free_storage(&storage));
+	}
 	len = (character - storage) + 1;
-
+	if (!storage[len])
+		return (free_storage(&storage));
+	new_storage = ft_substr(storage, len, ft_strlen(storage) - len);
+	free_storage(&storage);
+	if (!new_storage)
+		return (NULL);
+	return (new_storage);
 }
 
 static char	*free_storage(char *storage)
@@ -76,5 +84,17 @@ static char	*free_storage(char *storage)
 
 char	*get_next_line(int fd)
 {
-	static char	*storage;	
+	static char	*storage[3000];
+	char 		line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	storage[fd] = read_storage(fd, storage[fd]);
+	if (!storage[fd])
+		return (NULL);
+	line = extract_storage(storage[fd]);
+	if (!line)
+		return (free_storage(&storage[fd]));
+	storage[fd] = clean_storage(storage[f]);
+	return (line);
 }
