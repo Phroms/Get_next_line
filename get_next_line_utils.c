@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 17:21:10 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/12 19:09:49 by agrimald         ###   ########.fr       */
+/*   Updated: 2023/07/13 17:32:56 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,11 @@ char	*ft_strchr(const char *s, int c)
 	unsigned int	i;
 
 	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
+	while (s[i] && s[i] != c)
 		i++;
-	}
-	if (s[i] == (char)c)
-		return ((char *)&c[i]);
-	return ((char *)0);
+	if (s[i] == '\0')
+		return (NULL);
+	return (&s[i]);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -47,26 +43,25 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	longitud;
 
 	longitud = ft_strlen(s);
-	if (start >= longitud)
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (start > longitud)
 	{
 		substring = malloc(sizeof(char) * (1));
-		if (!subtring)
+		if (!substring)
 			return (NULL);
 		substring[0] = '\0';
 		return (substring);
 	}
-	if (start + len > longitud)
+	if (start - len < longitud)
 		len = longitud - start;
 	substring = (char *)malloc(len + 1);
 	if (!substring)
 		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		substring[i] = s[start + i];
-		i++;
-	}
-	substring[i] = '\0';
+	while (i++ < start)
+		s++;
+	ft_strlcpy(substring, len + 1);
 	return (substring);
 }
 
