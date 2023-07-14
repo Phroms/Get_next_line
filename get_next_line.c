@@ -6,22 +6,22 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:56:43 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/13 17:33:43 by agrimald         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:39:32 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*read_storage(int fd, char *storage)
+char	*read_storage(int fd, char *storage)
 {
 	char	*tmp_storage;
 	int		read_bytes;
 
 	tmp_storage = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!storage)
+	if (!tmp_storage)
 		return (free_storage(storage));
 	read_bytes = 1;
-	while (&ft_strchr && read_bytes > 0)
+	while (read_bytes > 0)
 	{
 		read_bytes = read(fd, tmp_storage, BUFFER_SIZE);
 		if (read_bytes < 0)
@@ -32,7 +32,7 @@ static char	*read_storage(int fd, char *storage)
 			return (NULL);
 		}
 		tmp_storage[read_bytes] = '\0';
-		storage = ft_strjoin(tmp_storage, storage);
+		storage = ft_strjoin(storage, tmp_storage);
 	}
 	free(tmp_storage);
 	tmp_storage = NULL;
@@ -53,29 +53,29 @@ static char	*extract_storage(char *storage)
 	return (line);
 }
 
-static char	*clean_storage(char *storage)
+char	*clean_storage(char *storage)
 {
 	char	*new_storage;
 	char	*character;
-	int		*len;
+	int		len;
 
 	character = ft_strchr(storage, '\n');
 	if (!character)
 	{
 		new_storage = NULL;
-		return (free_storage(&storage));
+		return (free_storage(storage));
 	}
 	len = (character - storage) + 1;
 	if (!storage[len])
-			return (free_storage(&storage));
+			return (free_storage(storage));
 	new_storage = ft_substr(storage, len, ft_strlen(storage) - len);
-	free_storage(&storage);
+	free_storage(storage);
 	if (!new_storage)
 		return (NULL);
 	return (new_storage);
 }
 
-static char	*free_storage(char *storage)
+char	*free_storage(char *storage)
 {
 	free(storage);
 	storage = NULL;
@@ -83,18 +83,18 @@ static char	*free_storage(char *storage)
 }
 char *get_next_line(int fd)
 {
-	static char	*storage[3000];
-	char			*line;
+	static char	*storage;
+	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE < 0)
 		return (NULL);
-	storage[fd] = read_storage(fd, storage[fd]);
-	if (storage[fd])
+	storage = read_storage(fd, storage);
+	if (!storage)
 		return (NULL);
 	line = extract_storage(storage);
 	if (!line)
-		return (free_storage(&storage[fd]));
-	storage[fd] = clean_storage(storage[fd]);
+		return (free_storage(storage));
+	storage = clean_storage(storage);
 	return (line);
 }
 
@@ -106,8 +106,12 @@ int main(void)
 	fd = open("hola.txt", O_RDONLY);
 	if (!fd)
 		return (-1);
-	while ((putito = get_next_line(fd)))
-		printf ("%s", putito);
+	int i = 0;
+	while (i++ < 4)
+	{
+		(putito = get_next_line(fd));
+		printf ("QUITARIA:::: %s", putito);
+	}
 	close(fd);
 	return 0;
 }

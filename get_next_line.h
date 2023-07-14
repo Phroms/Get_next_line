@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:58:10 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/13 16:37:50 by agrimald         ###   ########.fr       */
+/*   Updated: 2023/07/14 19:41:32 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <stdio.h>
 # include <stdarg.h>
 # include <stdlib.h>
+# include <fcntl.h>
+# include <limits.h>
 
 /* PROTOTIPO DEL GET_NEXT_LINE */
 
@@ -28,16 +30,15 @@ char	*get_next_line(int fd);
 
 /* FUNCIONES ADICIONALES */
 
-size_t	ft_strlen(const char *s);
-size_t	ft_strlcpy(char *dest, const char *src, size_t destsize);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(char *s);
+size_t	ft_strlcpy(char *dest, char *src, size_t destsize);
+char	*ft_strchr(char *s, int c);
+char	*ft_substr(char *s, unsigned int start, size_t len);
+char	*ft_strjoin(char *s1, char *s2);
 
 /* FUNCIONES QUE UTILIZARE */
 
 char	*read_storage(int fd, char *storage);
-char	*extract_storage(char *storage);
 char	*clean_storage(char *storage);
 char	*free_storage(char *storage);
 #endif
