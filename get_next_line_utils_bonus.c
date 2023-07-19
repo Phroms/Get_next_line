@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonuns.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/06 17:21:10 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/19 22:17:03 by agrimald         ###   ########.fr       */
+/*   Created: 2023/07/19 20:45:27 by agrimald          #+#    #+#             */
+/*   Updated: 2023/07/19 22:17:13 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(char *s)
 {
@@ -78,7 +78,7 @@ char	*ft_strjoin(char *s1, char *s2)
 			return (NULL);
 		s1[0] = '\0';
 	}
-	new_str = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
+	new_str = malloc(sizeof(char) *((ft_strlen(s1) + ft_strlen(s2)) + 1));
 	if (!s1)
 		return (free_storage(s1));
 	i = -1;

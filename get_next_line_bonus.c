@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/06 16:56:43 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/19 22:16:38 by agrimald         ###   ########.fr       */
+/*   Created: 2023/07/19 20:44:55 by agrimald          #+#    #+#             */
+/*   Updated: 2023/07/19 22:16:50 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*read_storage(int fd, char *storage)
 {
@@ -82,36 +82,36 @@ char	*free_storage(char *storage)
 
 char	*get_next_line(int fd)
 {
-	static char	*storage = NULL;
+	static char	*storage[2088];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	storage = read_storage(fd, storage);
-	if (!storage)
+	storage[fd] = read_storage(fd, storage[fd]);
+	if (!storage[fd])
 		return (NULL);
-	line = extract_storage(storage);
+	line = extract_storage(storage[fd]);
 	if (!line)
-		return (free_storage(storage));
-	storage = clean_storage(storage);
+		return (free_storage(storage[fd]));
+	storage[fd] = clean_storage(storage[fd]);
 	return (line);
 }
 
 /*int main(void)
 {
-	int fd;
-	char *putito;
+	int		fd;
+	char	*putito;
 
 	fd = open("hola.txt", O_RDONLY);
 	if (!fd)
 		return (-1);
 	int i = 0;
-	while (i++ < 5)
+	while (i++ < 4)
 	{
 		(putito = get_next_line(fd));
 		printf ("%s", putito);
 		free(putito);
 	}
 	close(fd);
-	return 0;
+	return (0);
 }*/

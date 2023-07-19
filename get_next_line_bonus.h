@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line._bonus.h                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/06 16:58:10 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/19 22:16:43 by agrimald         ###   ########.fr       */
+/*   Created: 2023/07/19 20:45:13 by agrimald          #+#    #+#             */
+/*   Updated: 2023/07/19 22:16:54 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 50
@@ -24,7 +24,7 @@
 # include <fcntl.h>
 # include <limits.h>
 
-/* PROTOTIPO DEL GET_NEXT_LINE */
+/* PROTOTIPO DEL GET_NEXT_LINE BONUS */
 
 char	*get_next_line(int fd);
 
