@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 17:21:10 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/14 20:40:27 by agrimald         ###   ########.fr       */
+/*   Updated: 2023/07/19 14:49:08 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*ft_strchr(char *s, int c)
 	unsigned int	i;
 
 	i = 0;
-	printf("string: %s\n", s);
 	while (s[i] && s[i] != c)
 		i++;
 	if (s[i] == '\0')
@@ -66,50 +65,51 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	return (substring);
 }
 
-char	*ft_strjoin(char *len_s1, char *len_s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
+	char	*new_str;
 	size_t	i;
 	size_t	j;
-	char	*str;
 
-	if (!len_s1)
+	if (!s1)
 	{
-		len_s1 = malloc(1 * sizeof(char));
-		if (!len_s1)
+		s1 = malloc(1 * sizeof(char));
+		if (!s1)
 			return (NULL);
-		len_s1[0] = '\0';
+		s1[0] = '\0';
 	}
-	str = malloc(sizeof(char) * ((ft_strlen(len_s1) + ft_strlen(len_s2)) + 1));
-	if (!len_s1)
-		return (free_storage(len_s1));
+	new_str = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
+	if (!s1)
+		return (free_storage(s1));
 	i = -1;
 	j = 0;
-	if (len_s1)
-		while (len_s1[++i] != '\0')
-			str[i] = len_s1[i];
-	while (len_s2[j] != '\0')
-		str[i++] = len_s2[j++];
-	str[ft_strlen(len_s1) + ft_strlen(len_s2)] = '\0';
-	free(len_s1);
-	return (str);
+	if (s1)
+		while (s1[++i] != '\0')
+			new_str[i] = s1[i];
+	while (s2[j] != '\0')
+		new_str[i++] = s2[j++];
+	new_str[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+	free(s1);
+	return (new_str);
 }
 
 size_t	ft_strlcpy(char *dest, char *src, size_t destsize)
 {
-	unsigned int	i;
-	unsigned int	j;
+	unsigned int	tmp;
+	unsigned int	aux;
 
-	i = 0;
-	j = 0;
-	while (src[j])
-		j++;
-	if (destsize < 1)
-		return (j);
-	while (src[i] && i < destsize - 1)
+	tmp = 0;
+	aux = 0;
+	while (src[tmp] != '\0')
+		tmp++;
+	if (destsize != '\0')
 	{
-		dest[i] = src[i];
-		i++;
+		while (src[aux] != '\0' && aux < (destsize - 1))
+		{
+			dest[aux] = src[aux];
+			aux++;
+		}
+		dest[aux] = '\0';
 	}
-	dest[i] = '\0';
-	return (j);
+	return (tmp);
 }

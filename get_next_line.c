@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:56:43 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/14 20:39:32 by agrimald         ###   ########.fr       */
+/*   Updated: 2023/07/19 14:49:10 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,27 @@ char	*read_storage(int fd, char *storage)
 	char	*tmp_storage;
 	int		read_bytes;
 
+	read_bytes = 1;
 	tmp_storage = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!tmp_storage)
-		return (free_storage(storage));
-	read_bytes = 1;
-	while (read_bytes > 0)
+		return (NULL);
+	tmp_storage[0] = '\0';
+	while (read_bytes > 0 && !(ft_strchr(tmp_storage, '\n')))
 	{
 		read_bytes = read(fd, tmp_storage, BUFFER_SIZE);
-		if (read_bytes < 0)
+		if (read_bytes > 0)
 		{
-			free(tmp_storage);
-			if (storage)
-				free(storage);
-			return (NULL);
+			tmp_storage[read_bytes] = '\0';
+			storage = ft_strjoin(storage, tmp_storage);
 		}
-		tmp_storage[read_bytes] = '\0';
-		storage = ft_strjoin(storage, tmp_storage);
 	}
 	free(tmp_storage);
-	tmp_storage = NULL;
+	if (read_bytes == -1)
+		return (free_storage(storage));
 	return (storage);
 }
 
-static char	*extract_storage(char *storage)
+char	*extract_storage(char *storage)
 {
 	char	*aux;
 	char	*line;
@@ -66,8 +64,8 @@ char	*clean_storage(char *storage)
 		return (free_storage(storage));
 	}
 	len = (character - storage) + 1;
-	if (!storage[len])
-			return (free_storage(storage));
+	if (storage[len] == '\0')
+		return (free_storage(storage));
 	new_storage = ft_substr(storage, len, ft_strlen(storage) - len);
 	free_storage(storage);
 	if (!new_storage)
@@ -81,12 +79,13 @@ char	*free_storage(char *storage)
 	storage = NULL;
 	return (NULL);
 }
-char *get_next_line(int fd)
+
+char	*get_next_line(int fd)
 {
-	static char	*storage;
+	static char	*storage = NULL;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	storage = read_storage(fd, storage);
 	if (!storage)
@@ -98,7 +97,7 @@ char *get_next_line(int fd)
 	return (line);
 }
 
-int main(void)
+/*int main(void)
 {
 	int fd;
 	char *putito;
@@ -110,8 +109,9 @@ int main(void)
 	while (i++ < 4)
 	{
 		(putito = get_next_line(fd));
-		printf ("QUITARIA:::: %s", putito);
+		printf ("%s", putito);
+		free(putito);
 	}
 	close(fd);
 	return 0;
-}
+}*/

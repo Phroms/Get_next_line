@@ -6,7 +6,7 @@
 /*   By: agrimald <agrimald@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 16:58:10 by agrimald          #+#    #+#             */
-/*   Updated: 2023/07/14 19:41:32 by agrimald         ###   ########.fr       */
+/*   Updated: 2023/07/14 22:00:08 by agrimald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*ft_strjoin(char *s1, char *s2);
 /* FUNCIONES QUE UTILIZARE */
 
 char	*read_storage(int fd, char *storage);
+char	*extract_storage(char *storage);
 char	*clean_storage(char *storage);
 char	*free_storage(char *storage);
 #endif
